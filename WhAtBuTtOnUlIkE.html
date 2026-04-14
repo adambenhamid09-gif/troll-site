@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Choose a button</title>
+
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: Arial;
+      text-align: center;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h2 {
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+    }
+
+    button {
+      padding: 15px 25px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .normal { background: gray; color: white; }
+
+    .colorful {
+      background: linear-gradient(45deg, red, orange, yellow, green, blue, purple);
+      color: white;
+      animation: rainbow 2s infinite linear;
+    }
+
+    @keyframes rainbow {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    .broken {
+      background: #330000;
+      color: #aaa;
+      transform: rotate(-5deg);
+      opacity: 0.6;
+      border: 2px dashed #555;
+      animation: shake 1s infinite;
+    }
+
+    @keyframes shake {
+      0% { transform: rotate(-5deg); }
+      50% { transform: rotate(-6deg) translate(-2px,2px); }
+      100% { transform: rotate(-5deg); }
+    }
+
+    #image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: none;
+      z-index: 999;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<h2 id="title">Which button do you like the most? (most beautiful)</h2>
+
+<div class="buttons" id="buttons">
+  <button class="normal" onclick="show('creepy.png','creepy.mp3')">Me</button>
+  <button class="colorful" onclick="show('happy.png','happy.mp3')">Obviously me duh</button>
+  <button class="broken" onclick="show('sad.png','sad.mp3')">No one likes me...</button>
+</div>
+
+<img id="image">
+<audio id="sound"></audio>
+
+<script>
+let clicked = false;
+
+function show(img, sound) {
+  if (clicked) return;
+  clicked = true;
+
+  document.getElementById("buttons").style.display = "none";
+  document.getElementById("title").style.display = "none";
+
+  const image = document.getElementById("image");
+  image.src = img;
+  image.style.display = "block";
+
+  const audio = document.getElementById("sound");
+  audio.src = sound;
+  audio.currentTime = 0;
+
+  audio.volume = 1.0; // 🔥 MAXIMUM POSSIBLE
+
+  audio.play();
+}
+</script>
+
+</body>
+</html>
